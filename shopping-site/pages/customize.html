@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse - Personnalisation</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/customize.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main>
+        <h1 class="section-title">Personnalisez votre vêtement</h1>
+        <div class="customizer">
+            <div>
+                <div class="product-select">
+                    <label for="productType">Choisissez le type de produit:</label>
+                    <select id="productType">
+                        <option value="tshirt">T-shirt</option>
+                        <option value="pantalon">Pantalon</option>
+                        <option value="chaussure">Chaussures</option>
+                        <option value="hoodie">Hoodie</option>
+                    </select>
+                </div>
+
+                <div class="transform-buttons">
+                    <strong>Contrôles Texte:</strong>
+                    <button onclick="setTransformMode('translate')">Déplacer</button>
+                    <button onclick="setTransformMode('scale')">Redimensionner</button>
+                    <button onclick="setTransformMode('rotate')">Tourner</button>
+                    <button onclick="resetTextPosition()">Réinitialiser</button>
+                    <button onclick="toggleLockText()">🔒 Verrouiller</button>
+                </div>
+
+                <div class="transform-buttons" style="margin-top: 0.5rem;">
+                    <strong>Contrôles Logo:</strong>
+                    <button onclick="setLogoTransformMode('translate')">Déplacer</button>
+                    <button onclick="setLogoTransformMode('scale')">Redimensionner</button>
+                    <button onclick="setLogoTransformMode('rotate')">Tourner</button>
+                    <button onclick="deleteLogo()">🗑️ Supprimer</button>
+                    <button onclick="toggleLocklogoPlane()">🔒 Verrouiller</button>
+                </div>
+            </div>
+
+            <div id="container3D"></div>
+
+            <div class="controls">
+                <h2>Options de personnalisation</h2>
+
+                <label for="customColor">Couleur du produit:</label>
+                <input id="customColor" type="color" value="#ffffff">
+
+                <label for="textInput">Texte:</label>
+                <input id="textInput" placeholder="Entrez votre texte" type="text">
+
+                <label for="fontSelect">Police:</label>
+                <select id="fontSelect">
+                    <option value="Orbitron">Orbitron</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Arial">Arial</option>
+                </select>
+
+                <label for="textColorPicker">Couleur du texte:</label>
+                <input id="textColorPicker" type="color" value="#000000">
+
+                <button id="addTextBtn">Ajouter le texte</button>
+                <button id="addLogoBtn">Ajouter un logo</button>
+                <input type="file" id="logoInput" accept="image/*">
+
+                <p>Prix: <span id="price">20.00</span> $</p>
+                <button id="addToCartBtn">Ajouter au panier</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script type="module" src="../assets/js/customization.js"></script>
+</body>
+
+</html>

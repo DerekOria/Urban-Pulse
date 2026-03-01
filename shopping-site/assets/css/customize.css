@@ -1,0 +1,205 @@
+/* =====================================================
+   Urban Pulse - Customization Page Styles
+   ===================================================== */
+
+.customizer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1800px;
+  margin: 2rem auto;
+  padding: 0 3rem;
+}
+
+.product-select select {
+  width: 250px;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-select select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+.product-select label {
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.product-select select option {
+  background-color: #111;
+}
+
+#container3D {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 500px;
+  min-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+#container3D:hover {
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+  border-color: var(--primary);
+}
+
+.transform-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.transform-buttons strong {
+  width: 100%;
+  color: var(--primary);
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.transform-buttons button {
+  background: var(--primary);
+  color: var(--dark);
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.transform-buttons button:hover {
+  background: var(--secondary);
+  color: var(--light);
+  transform: scale(1.05);
+}
+
+.controls {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 300px;
+  max-width: 350px;
+}
+
+.controls h2 {
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.controls label {
+  color: var(--light);
+  display: block;
+  margin: 1rem 0 0.5rem;
+}
+
+.controls input[type="text"],
+.controls select {
+  width: 100%;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--light);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.controls input[type="text"]:focus,
+.controls select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+.controls select option {
+  background-color: #111;
+}
+
+.controls input[type="color"] {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.controls button {
+  background: var(--primary);
+  color: var(--dark);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.4rem 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.controls button:hover {
+  background: var(--secondary);
+  color: var(--light);
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 0, 153, 0.3);
+}
+
+#price {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+}
+
+#logoInput {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .customizer {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  #container3D {
+    height: 400px;
+    min-width: 100%;
+    max-width: 800px;
+    padding: 1rem;
+  }
+
+  .controls {
+    min-width: 100%;
+    max-width: 800px;
+  }
+}

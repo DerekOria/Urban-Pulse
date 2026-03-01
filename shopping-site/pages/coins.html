@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse - Acheter des Coins</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/coins.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main>
+        <h1 class="section-title">💰 Acheter des Coins</h1>
+
+        <div class="coins-container">
+            <div class="coin-card">
+                <h2>350 Coins</h2>
+                <p>35 $</p>
+                <button onclick="ajouterAuPanier(350, 35)">Ajouter au panier</button>
+            </div>
+
+            <div class="coin-card">
+                <div class="badge">⭐ Top Seller</div>
+                <h2>400 Coins</h2>
+                <p>40 $</p>
+                <button onclick="ajouterAuPanier(400, 40)">Ajouter au panier</button>
+            </div>
+
+            <div class="coin-card">
+                <h2>1000 Coins</h2>
+                <p>100 $</p>
+                <button onclick="ajouterAuPanier(1000, 100)">Ajouter au panier</button>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notif" class="notification"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        function showNotification(message, type) {
+            const notif = document.getElementById("notif");
+            notif.textContent = message;
+            notif.className = "notification " + (type || "success") + " show";
+            setTimeout(() => {
+                notif.className = "notification";
+            }, 2500);
+        }
+
+        function ajouterAuPanier(quantite, prix) {
+            fetch("../api/cart/add.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: quantite + " Coins",
+                    price: prix,
+                    quantity: 1,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.status === "success") {
+                        showNotification(`${quantite} coins ajoutés au panier ✅`, "success");
+                    } else {
+                        showNotification("Erreur : " + data.message, "error");
+                    }
+                })
+                .catch((err) => {
+                    showNotification("Erreur de connexion au serveur.", "error");
+                });
+        }
+    </script>
+</body>
+
+</html>

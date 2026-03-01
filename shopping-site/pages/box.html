@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse - Box Surprise</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main class="box-container">
+        <h1 class="section-title">🎁 Ouvre ta Urban Box</h1>
+        <p>Obtiens un article streetwear aléatoire !</p>
+        <button class="box-button" id="spinBtn">🎲 Lancer la roulette pour 500 coins</button>
+
+        <div class="carousel-wrapper">
+            <div class="arrow-indicator">⬇️</div>
+            <div class="carousel">
+                <div class="carousel-track" id="carousel-track"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Win Modal -->
+    <div class="win-modal" id="winModal">
+        <img alt="gagné" id="winImage" src="">
+        <h2 id="winName"></h2>
+        <p id="winPrice"></p>
+        <div class="modal-actions">
+            <button class="add-to-cart" id="modalAddToCart">Ajouter au panier</button>
+            <button class="sell-for-coins" id="modalSellCoins">Vendre pour des coins</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="win-sound" src="../sounds/win.mp3" preload="auto"></audio>
+    <audio id="spin-sound" src="../sounds/spin.mp3" preload="auto"></audio>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        const API_BASE = "../api";
+        const items = [
+            { name: "Lunettes Sahara Shade", price: 45, chance: "5%", image: "../clothes/lunetteUrbanshade.webp" },
+            { name: "T-shirt Urban Style", price: 34.99, chance: "6%", image: "../clothes/20250503_1656_T-shirts Urban Pulse_simple_compose_01jtbywsbgekv83qchn5z5nkpq (1).png" },
+            { name: "Casquette Urban Zellige", price: 30, chance: "8%", image: "../clothes/CasquetteUrban.webp" },
+            { name: "T-shirt Urban Moroccan Style", price: 34.99, chance: "6%", image: "../clothes/20250503_1700_T-shirts Urban Pulse_simple_compose_01jtbz3b1afkkvsk3fzd6ddsaa.png" },
+            { name: "Pantalon Urban Style", price: 30, chance: "8%", image: "../clothes/20250506_1433_Pantalon Urbain Marocain_simple_compose_01jtkdwwewf1ctweh05gave060.png" },
+            { name: "T-shirt Urban Pulse Design", price: 29.99, chance: "8%", image: "../clothes/20250503_1656_T-shirts Urban Pulse_simple_compose_01jtbywsbff2msb5gwaj99ygnj.png" },
+        ];
+
+        const track = document.getElementById("carousel-track");
+        const modal = document.getElementById("winModal");
+        const winImg = document.getElementById("winImage");
+        const winName = document.getElementById("winName");
+        const winPrice = document.getElementById("winPrice");
+        const spinBtn = document.getElementById("spinBtn");
+
+        let scrollAmount = 0;
+        let spinInterval;
+        let finalItem;
+
+        function fillCarousel() {
+            track.innerHTML = "";
+            for (let i = 0; i < 30; i++) {
+                const item = items[Math.floor(Math.random() * items.length)];
+                const card = document.createElement("div");
+                card.className = "item-card";
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="name">${item.name}</div>
+                    <div class="price">${item.price} $</div>
+                    <div class="chance">${item.chance}</div>
+                `;
+                track.appendChild(card);
+            }
+        }
+
+        function showNotification(message, type) {
+            const notif = document.createElement("div");
+            notif.className = "notification " + type + " show";
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        spinBtn.addEventListener("click", async () => {
+            spinBtn.disabled = true;
+
+            try {
+                const currentCoins = parseInt(document.getElementById("coinHeader").textContent);
+                if (isNaN(currentCoins) || currentCoins < 500) {
+                    throw new Error("Vous n'avez pas assez de coins ! Il vous faut 500 coins.");
+                }
+
+                // Déduire 500 coins
+                const res = await fetch(API_BASE + "/coins/update.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount: -500, reason: "Box Surprise" }),
+                });
+
+                const data = await res.json();
+                if (data.status !== "success") {
+                    throw new Error(data.message || "Erreur lors de la déduction des coins.");
+                }
+
+                Coins.updateDisplay(data.newBalance);
+
+                // Lancer la roulette
+                fillCarousel();
+                scrollAmount = 0;
+                clearInterval(spinInterval);
+                modal.style.display = "none";
+
+                const spinSound = document.getElementById("spin-sound");
+                if (spinSound) { spinSound.currentTime = 0; spinSound.play(); }
+
+                const cardWidth = 150;
+                const totalScroll = Math.floor(Math.random() * 10 + 20) * cardWidth;
+                const finalIndex = Math.floor((totalScroll % (items.length * cardWidth)) / cardWidth) % items.length;
+                finalItem = items[finalIndex];
+
+                spinInterval = setInterval(() => {
+                    if (scrollAmount >= totalScroll) {
+                        clearInterval(spinInterval);
+                        if (spinSound) spinSound.pause();
+                        showWinModal(finalItem);
+                        launchConfetti();
+                        spinBtn.disabled = false;
+                    } else {
+                        scrollAmount += 10;
+                        track.style.transform = `translateX(-${scrollAmount}px)`;
+                    }
+                }, 40);
+            } catch (error) {
+                showNotification(error.message || "Erreur. Veuillez réessayer.", "error");
+                spinBtn.disabled = false;
+            }
+        });
+
+        function showWinModal(item) {
+            winImg.src = item.image;
+            winName.textContent = item.name;
+            winPrice.textContent = `Valeur estimée : ${item.price} $`;
+            modal.style.display = "flex";
+            const winSound = document.getElementById("win-sound");
+            if (winSound) { winSound.currentTime = 0; winSound.play(); }
+        }
+
+        // Ajouter au panier
+        document.getElementById("modalAddToCart").addEventListener("click", async () => {
+            if (!finalItem) return;
+            const btns = modal.querySelectorAll("button");
+            btns.forEach(b => b.disabled = true);
+
+            try {
+                const res = await fetch(API_BASE + "/cart/add.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: finalItem.name,
+                        price: finalItem.price,
+                        quantity: 1,
+                    }),
+                });
+
+                const data = await res.json();
+                if (data.status === "success") {
+                    showNotification(`${finalItem.name} ajouté au panier !`, "success");
+                    modal.style.display = "none";
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                showNotification("Erreur lors de l'ajout au panier.", "error");
+            } finally {
+                btns.forEach(b => b.disabled = false);
+            }
+        });
+
+        // Vendre pour des coins
+        document.getElementById("modalSellCoins").addEventListener("click", async () => {
+            const coinsToAdd = Math.floor(finalItem.price / 2);
+            try {
+                const res = await fetch(API_BASE + "/coins/update.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount: coinsToAdd, reason: `Vente de ${finalItem.name}` }),
+                });
+
+                const data = await res.json();
+                if (data.status === "success") {
+                    Coins.updateDisplay(data.newBalance);
+                    showNotification(`Tu as reçu ${coinsToAdd} coins !`, "success");
+                    modal.style.display = "none";
+                } else {
+                    showNotification("Erreur : " + data.message, "error");
+                }
+            } catch (error) {
+                showNotification("Erreur de connexion.", "error");
+            }
+        });
+
+        function launchConfetti() {
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+
+</html>

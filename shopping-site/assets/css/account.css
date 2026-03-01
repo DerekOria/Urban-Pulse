@@ -1,0 +1,130 @@
+/* =====================================================
+   Urban Pulse - Account Page Styles
+   ===================================================== */
+
+.account-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+}
+
+.dashboard {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard h2 {
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.dashboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard li {
+  margin: 1rem 0;
+  color: var(--light);
+  font-size: 1.1rem;
+}
+
+.dashboard li strong {
+  color: var(--primary);
+  margin-right: 0.5rem;
+}
+
+.account-info {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.account-info h2 {
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+#address-form {
+  display: grid;
+  gap: 1rem;
+}
+
+#address-form input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  color: var(--light);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#address-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+  outline: none;
+}
+
+#address-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#address-form button,
+#logout-btn {
+  background: var(--primary);
+  color: var(--dark);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+#address-form button:hover,
+#logout-btn:hover {
+  background: var(--secondary);
+  color: var(--light);
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 0, 153, 0.3);
+}
+
+#logout-btn {
+  background: rgba(255, 0, 0, 0.6);
+  color: var(--light);
+  width: 100%;
+  font-size: 1rem;
+}
+
+#logout-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  .account-container {
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .dashboard,
+  .account-info {
+    padding: 1rem;
+  }
+}

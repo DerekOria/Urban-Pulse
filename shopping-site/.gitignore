@@ -1,0 +1,36 @@
+# =====================================================
+# Urban Pulse - .gitignore
+# =====================================================
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+vendor/
+
+# Environment / Config sensible
+.env
+*.local
+
+# Logs
+*.log
+error_log
+
+# Temp
+*.tmp
+*.bak
+*.orig
+
+# PHP
+*.cache

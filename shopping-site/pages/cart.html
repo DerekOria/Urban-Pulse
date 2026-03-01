@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse - Panier</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/cart.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main>
+        <h1 class="section-title">Votre Panier</h1>
+        <div id="cart-container">
+            <div id="cart-items"></div>
+            <div id="cart-summary">
+                <p>Sous-total: <span id="subtotal">0.00</span> $</p>
+                <p>TPS (5%): <span id="tps">0.00</span> $</p>
+                <p>TVQ (9.975%): <span id="tvq">0.00</span> $</p>
+                <p>Total: <span id="total">0.00</span> $</p>
+            </div>
+            <button id="checkout-btn">Passer la commande</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        function chargerPanier() {
+            fetch("../api/cart/get.php")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        const cartDiv = document.getElementById("cart-items");
+                        let total = 0;
+                        cartDiv.innerHTML = "";
+
+                        if (data.items.length === 0) {
+                            cartDiv.innerHTML = '<p class="empty-cart">Votre panier est vide</p>';
+                            return;
+                        }
+
+                        data.items.forEach(item => {
+                            const ligne = document.createElement("div");
+                            ligne.classList.add("cart-item");
+                            ligne.innerHTML = `<strong>${item.name}</strong> <span>${item.price.toFixed(2)} $ x ${item.quantity}</span>`;
+                            cartDiv.appendChild(ligne);
+                            total += item.price * item.quantity;
+                        });
+
+                        const tps = total * 0.05;
+                        const tvq = total * 0.09975;
+                        document.getElementById("subtotal").textContent = total.toFixed(2);
+                        document.getElementById("tps").textContent = tps.toFixed(2);
+                        document.getElementById("tvq").textContent = tvq.toFixed(2);
+                        document.getElementById("total").textContent = (total + tps + tvq).toFixed(2);
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur chargement panier:", error);
+                });
+        }
+
+        chargerPanier();
+
+        document.getElementById("checkout-btn").addEventListener("click", async () => {
+            try {
+                const res = await fetch("../api/orders/validate.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    document.getElementById("cart-items").innerHTML = "";
+                    document.getElementById("subtotal").textContent = "0.00";
+                    document.getElementById("tps").textContent = "0.00";
+                    document.getElementById("tvq").textContent = "0.00";
+                    document.getElementById("total").textContent = "0.00";
+
+                    // Mettre à jour les coins (cashback)
+                    Coins.forceRefresh();
+
+                    alert("Commande validée avec succès ! Vous avez reçu des coins de cashback.");
+                    window.location.href = "../index.html";
+                } else {
+                    alert("Erreur : " + data.message);
+                }
+            } catch (error) {
+                console.error("Erreur lors de la validation:", error);
+                alert("Une erreur est survenue lors de la validation de la commande.");
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+/* =====================================================
+   Urban Pulse - Cart Page Styles
+   ===================================================== */
+
+#cart-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+}
+
+#cart-items {
+  margin-bottom: 2rem;
+}
+
+.cart-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: translateX(10px);
+  border-color: var(--primary);
+  box-shadow: 0 5px 15px rgba(0, 245, 255, 0.2);
+}
+
+.cart-item strong {
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.1rem;
+}
+
+#cart-summary {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#cart-summary p {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  color: var(--light);
+  font-size: 1.1rem;
+}
+
+#cart-summary p:last-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--primary);
+  font-family: "Orbitron", sans-serif;
+}
+
+#checkout-btn {
+  background: var(--primary);
+  color: var(--dark);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+#checkout-btn:hover {
+  background: var(--secondary);
+  color: var(--light);
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 0, 153, 0.3);
+}
+
+.empty-cart {
+  text-align: center;
+  color: var(--light);
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  #cart-container {
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  #checkout-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}

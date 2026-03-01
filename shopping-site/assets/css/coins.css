@@ -1,0 +1,72 @@
+/* =====================================================
+   Urban Pulse - Coins Purchase Page Styles
+   ===================================================== */
+
+.coins-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 2rem 3rem;
+}
+
+.coin-card {
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+  padding: 2rem;
+  width: 280px;
+  text-align: center;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.coin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+}
+
+.coin-card img {
+  margin-bottom: 1rem;
+}
+
+.coin-card .badge {
+  font-family: "Orbitron", sans-serif;
+  color: var(--accent);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.coin-card h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.coin-card p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--light);
+}
+
+.coin-card button {
+  background: var(--primary);
+  color: var(--dark);
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.coin-card button:hover {
+  background: var(--secondary);
+  color: var(--light);
+  transform: scale(1.05);
+}

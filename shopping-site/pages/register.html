@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Urban Pulse</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main class="auth-page">
+        <div class="form-container">
+            <h2>Créer un compte</h2>
+            <form id="signup-form">
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Mot de passe (min 6 caractères)" required
+                    minlength="6">
+                <button type="submit">S'inscrire</button>
+            </form>
+            <p>Déjà un compte ? <a href="login.html">Connexion</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            if (password.length < 6) {
+                alert("Le mot de passe doit contenir au moins 6 caractères.");
+                return;
+            }
+
+            try {
+                const res = await fetch("../api/auth/register.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+                    window.location.href = "login.html";
+                } else {
+                    alert(data.message || "Erreur lors de l'inscription.");
+                }
+            } catch (error) {
+                console.error("Erreur:", error);
+                alert("Erreur de connexion au serveur.");
+            }
+        });
+    </script>
+</body>
+
+</html>

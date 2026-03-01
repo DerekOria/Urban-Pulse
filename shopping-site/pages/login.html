@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Urban Pulse</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main class="auth-page">
+        <div class="form-container">
+            <h2>Connexion</h2>
+            <form id="login-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Mot de passe" required>
+                <button type="submit">Se connecter</button>
+            </form>
+            <p>Pas encore de compte ? <a href="register.html">Inscription</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const res = await fetch("../api/auth/login.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    alert("Connexion réussie !");
+                    window.location.href = "account.html";
+                } else {
+                    alert(data.message || "Erreur de connexion.");
+                }
+            } catch (error) {
+                console.error("Erreur:", error);
+                alert("Erreur de connexion au serveur.");
+            }
+        });
+    </script>
+</body>
+
+</html>

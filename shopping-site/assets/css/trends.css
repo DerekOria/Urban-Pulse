@@ -1,0 +1,58 @@
+/* =====================================================
+   Urban Pulse - Trends Page Styles
+   ===================================================== */
+
+.trending-grid {
+  margin: 2rem 0;
+}
+
+.trending-grid .item-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.trending-grid .item-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+  border-color: var(--primary);
+}
+
+.trending-grid .item-card img {
+  height: 350px;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+}
+
+.trending-grid .item-card:hover img {
+  transform: scale(1.05);
+}
+
+.trending-grid .item-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--light);
+  font-family: "Orbitron", sans-serif;
+}
+
+.trending-grid .item-card .price {
+  font-size: 1.2rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .trending-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+
+  .trending-grid .item-card img {
+    height: 300px;
+  }
+}

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Baseball Cap
+* source:	https://sketchfab.com/3d-models/baseball-cap-1c1d34d73fd94e6b9e8f82b1eb7194a0
+* author:	Scott VanArsdale (https://sketchfab.com/vanart)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Baseball Cap" (https://sketchfab.com/3d-models/baseball-cap-1c1d34d73fd94e6b9e8f82b1eb7194a0) by Scott VanArsdale (https://sketchfab.com/vanart) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse - Mon Compte</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/account.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <header></header>
+
+    <main>
+        <h1 class="section-title">Mon Compte</h1>
+        <div class="account-container">
+            <div class="dashboard">
+                <h2>Tableau de bord</h2>
+                <ul>
+                    <li><strong>Email :</strong> <span id="dashboard-email">Chargement...</span></li>
+                    <li><strong>Coins :</strong> <span id="dashboard-coins">Chargement...</span></li>
+                </ul>
+            </div>
+
+            <div class="account-info">
+                <h2>Adresse de livraison</h2>
+                <form id="address-form">
+                    <input type="text" id="street" placeholder="Rue" required>
+                    <input type="text" id="city" placeholder="Ville" required>
+                    <input type="text" id="postal-code" placeholder="Code postal" required>
+                    <input type="text" id="country" placeholder="Pays" required>
+                    <button type="submit">Enregistrer</button>
+                </form>
+            </div>
+
+            <button id="logout-btn">Se déconnecter</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Urban Pulse - Le Shopping du Futur</p>
+    </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/coins.js"></script>
+    <script>
+        // Charger les informations de l'utilisateur
+        function loadUserInfo() {
+            fetch("../api/user/get.php")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        const u = data.user;
+                        document.getElementById("dashboard-email").textContent = u.email;
+                        document.getElementById("dashboard-coins").textContent = u.coins + " coins";
+                        if (u.street) document.getElementById("street").value = u.street;
+                        if (u.city) document.getElementById("city").value = u.city;
+                        if (u.postal_code) document.getElementById("postal-code").value = u.postal_code;
+                        if (u.country) document.getElementById("country").value = u.country;
+                        // Mettre à jour le header coins
+                        Coins.updateDisplay(u.coins);
+                    } else {
+                        alert("Tu dois être connecté.");
+                        window.location.href = "login.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur:", error);
+                    window.location.href = "login.html";
+                });
+        }
+
+        loadUserInfo();
+
+        // Enregistrer l'adresse
+        document.getElementById("address-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                street: document.getElementById("street").value,
+                city: document.getElementById("city").value,
+                postal_code: document.getElementById("postal-code").value,
+                country: document.getElementById("country").value,
+            };
+
+            try {
+                const res = await fetch("../api/user/update-address.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                const result = await res.json();
+                if (result.status === "success") {
+                    alert("Adresse enregistrée !");
+                } else {
+                    alert("Erreur : " + result.message);
+                }
+            } catch (error) {
+                console.error("Erreur:", error);
+                alert("Erreur lors de la sauvegarde de l'adresse.");
+            }
+        });
+
+        // Déconnexion
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            fetch("../api/auth/logout.php").then(() => {
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+</body>
+
+</html>
