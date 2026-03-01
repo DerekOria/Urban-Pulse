@@ -2,7 +2,7 @@
   <img src="clothes/CasquetteUrban.webp" alt="Urban Pulse Logo" width="120">
 </p>
 
-<h1 align="center">🛒 Urban Pulse</h1>
+<h1 align="center"> Urban Pulse</h1>
 
 <p align="center">
   <strong>Le Shopping du Futur</strong> — Une plateforme e-commerce streetwear avec personnalisation 3D, système de coins et box surprise.
@@ -117,7 +117,7 @@ shopping-site/
 1. **Cloner le repo**
 
    ```bash
-   git clone https://github.com/VOTRE-USERNAME/urban-pulse.git
+   git clone https://github.com/DerekOria/urban-pulse.git
    ```
 
 2. **Copier dans XAMPP**
@@ -170,10 +170,10 @@ shopping-site/
 
 ## 👨‍💻 Auteur
 
-**Derek** — Projet réalisé dans le cadre du cours 6S
+**Derek** — Projet réalisé pour le "Symposium des sciences 2025"
 
 ---
 
 <p align="center">
-  <sub>⚡ Built with passion and streetwear vibes ⚡</sub>
+  <sub> Built with passion and streetwear vibes </sub>
 </p>
